@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Detail PDF</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; }
+        h2 { color: #20c997; }
+        table { width: 60%; border-collapse: collapse; margin-bottom: 2em; margin-left:auto; margin-right:auto; }
+        th, td { border: 1px solid #dee2e6; padding: 8px; }
+        th { background: #20c997; color: #fff; width: 40%; }
+        td { background: #e9ecef; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Student Detail</h2>
+    {% if student %}
+    <table>
+        <tbody>
+            {% for key, value in student.items() %}
+            <tr>
+                <th>{{ key }}</th>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align:center;">No student found with this ID.</p>
+    {% endif %}
+</body>
+</html>

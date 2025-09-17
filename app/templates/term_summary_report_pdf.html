@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Term-wise Summary Report PDF</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; }
+        h2 { color: #6f42c1; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+        th, td { border: 1px solid #dee2e6; padding: 8px; }
+        th { background: #6f42c1; color: #fff; }
+        tr:nth-child(even) { background: #e9ecef; }
+    </style>
+</head>
+<body>
+    <h2>Term-wise Summary Report</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Term</th>
+                <th>Student Count</th>
+                <th>Average Total</th>
+                <th>Max Total</th>
+                <th>Min Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in term_stats %}
+            <tr>
+                <td>{{ stat.term }}</td>
+                <td>{{ stat.student_count }}</td>
+                <td>{{ stat.average_total }}</td>
+                <td>{{ stat.max_total }}</td>
+                <td>{{ stat.min_total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

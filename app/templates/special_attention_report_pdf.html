@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Special Attention Report PDF</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; }
+        h2 { color: #fd7e14; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+        th, td { border: 1px solid #dee2e6; padding: 8px; }
+        th { background: #fd7e14; color: #fff; }
+        tr:nth-child(even) { background: #e9ecef; }
+        .maybepass { background: #fff3cd; }
+        .withdrawn { background: #f8d7da; }
+        .section-title { font-size: 1.2em; margin-top: 1em; color: #856404; }
+        .section-title.withdrawn { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <h2>Special Attention Report</h2>
+    <div class="section-title">May Be Pass (20-34 marks in any main subject)</div>
+    <table>
+        <thead>
+            <tr>
+                {% for col in may_be_pass[0].keys() %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in may_be_pass %}
+            <tr class="maybepass">
+                {% for value in student.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="section-title withdrawn">Withdrawn (W in any main subject)</div>
+    <table>
+        <thead>
+            <tr>
+                {% for col in withdrawn[0].keys() %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in withdrawn %}
+            <tr class="withdrawn">
+                {% for value in student.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

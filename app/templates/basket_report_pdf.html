@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basket Subjects Report PDF</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; }
+        h2 { color: #17a2b8; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+        th, td { border: 1px solid #dee2e6; padding: 8px; }
+        th { background: #17a2b8; color: #fff; }
+        tr:nth-child(even) { background: #e9ecef; }
+    </style>
+</head>
+<body>
+    <h2>Basket Subjects Report</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Student Count</th>
+                <th>Average</th>
+                <th>Min</th>
+                <th>Max</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subj, stats in basket_summary.items() %}
+            <tr>
+                <td>{{ subj }}</td>
+                <td>{{ stats.count }}</td>
+                <td>{{ stats.average }}</td>
+                <td>{{ stats.min }}</td>
+                <td>{{ stats.max }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

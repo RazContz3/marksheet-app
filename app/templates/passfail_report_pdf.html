@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pass/Fail Report PDF</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; }
+        h2 { color: #007bff; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+        th, td { border: 1px solid #dee2e6; padding: 8px; }
+        th { background: #007bff; color: #fff; }
+        tr:nth-child(even) { background: #e9ecef; }
+        .passed { background: #d4edda; }
+        .failed { background: #f8d7da; }
+        .section-title { font-size: 1.2em; margin-top: 1em; color: #28a745; }
+        .section-title.failed { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <h2>Pass/Fail Report</h2>
+    <div class="section-title">Passed Students</div>
+    <table>
+        <thead>
+            <tr>
+                {% for col in passed[0].keys() %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in passed %}
+            <tr class="passed">
+                {% for value in student.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="section-title failed">Failed Students</div>
+    <table>
+        <thead>
+            <tr>
+                {% for col in failed[0].keys() %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in failed %}
+            <tr class="failed">
+                {% for value in student.values() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

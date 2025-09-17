@@ -1,0 +1,68 @@
+# Student Categorization Analysis (Sri Lankan Term Test)
+
+## 1. Passing Criteria (Sri Lanka)
+- At least 6 passes (A, B, C, S) including Sinhala and Mathematics.
+- Out of those, at least 3 credits (A, B, or C).
+
+### Alternative Pass Criteria
+- Pass for Sinhala or Mathematics.
+- At least 5 passes (A, B, C, S).
+- At least 3 credits (A, B, or C).
+
+## 2. Minimum Marks Considered
+- **Pass mark threshold:** 35
+- **May Be Pass threshold:** 20
+- **Credits (A/B/C):** Only if marks ≥ 35
+
+## 3. Excel File Logic (s1_neg.xlsm)
+- Column CE (83rd column) formula:
+  - If CC (A/B/C/S/W count) ≥ 6 and CD (A/B/C count) ≥ 3 and key subjects ≥ 35 → "6/3 සමත්" (Pass)
+  - If CC ≥ 5 and CD ≥ 3 and key subjects ≥ 35 → "5/3 සමත්" (Pass)
+  - If CC ≥ 4 and CD ≥ 1 and key subjects ≥ 20 → "සමත් කළ හැකි" (May Be Pass)
+  - If W count = 9 → "W9" (Withdrawn)
+  - Else → "අසමත් ?" (Fail)
+- **Note:** The file incorrectly counts "W" as a pass. Correct logic should exclude "W" from pass calculations.
+
+## 4. How Students Are Categorized
+- **Pass (6/3 or 5/3):** Meets main/alternative criteria.
+- **May Be Pass:** Close to passing, missing one or more requirements (e.g., just below 35 in one subject).
+- **Withdrawn:** 9 "W" grades.
+- **Fail:** Does not meet any criteria above.
+
+## 5. Filtering for Special Attention
+- Students marked as "May Be Pass" are close to passing and may need extra help (e.g., just one subject short).
+- You can further filter by checking which subject(s) they missed, or how close their marks are to the pass threshold.
+
+## 6. Sinhala Summary
+- "සමත් කළ හැකි" – ප්‍රධාන පසුගිය විභාගය සඳහා අවශ්‍ය සුදුසුකම් නොමැති නමුත් සමත් විය හැකි සිසුන්.
+- "W9" – විභාගයෙන් ඉවත් වූ සිසුන්.
+- "අසමත් ?" – සමත් වීමට අවශ්‍ය සුදුසුකම් නොමැති, විශේෂ අවධානය අවශ්‍ය සිසුන්.
+
+## 7. Recommendations for App
+- Exclude "W" from pass calculations.
+- Use only "A", "B", "C", "S" for pass and "A", "B", "C" for credits.
+- Ensure Sinhala and Mathematics are included in pass subjects.
+- Flag students who are close to passing (e.g., missing by one subject or a few marks) for special attention.
+
+## 8. Example Algorithm (Pseudocode)
+```
+for each student:
+    count_passes = count of (A/B/C/S) grades
+    count_credits = count of (A/B/C) grades
+    sinhala_pass = grade in Sinhala is A/B/C/S and marks >= 35
+    math_pass = grade in Mathematics is A/B/C/S and marks >= 35
+    if count_passes >= 6 and count_credits >= 3 and sinhala_pass and math_pass:
+        category = "Pass"
+    elif (sinhala_pass or math_pass) and count_passes >= 5 and count_credits >= 3:
+        category = "Pass"
+    elif count_passes >= 4 and count_credits >= 1 and (Sinhala or Math marks >= 20):
+        category = "May Be Pass"
+    elif W_count == 9:
+        category = "Withdrawn"
+    else:
+        category = "Fail"
+```
+
+---
+
+This file contains all findings and logic for building your app.

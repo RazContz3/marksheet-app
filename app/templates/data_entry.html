@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual Data Entry</title>
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+    <style>
+        body { background: #f8f9fa; }
+        #data-table { margin: 2rem auto; }
+        .tabulator { font-size: 0.95rem; }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/dashboard">Marksheet Dashboard</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/students">Students</a></li>
+        <li class="nav-item"><a class="nav-link" href="/report/passfail">Pass/Fail Report</a></li>
+        <li class="nav-item"><a class="nav-link" href="/report/basket">Basket Subjects</a></li>
+        <li class="nav-item"><a class="nav-link" href="/report/term_summary">Term Summary</a></li>
+        <li class="nav-item"><a class="nav-link" href="/report/special_attention">Special Attention</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/data_entry">Manual Data Entry</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+    <h2>Manual Data Entry (Sheet-like)</h2>
+    <div id="data-table"></div>
+    <button id="save-btn" class="btn btn-success mt-3">Save Changes</button>
+    <div id="save-status" class="mt-2"></div>
+</div>
+<script>
+var table = new Tabulator("#data-table", {
+    height: "600px",
+    layout: "fitDataFill",
+    columns: {{ columns|tojson }},
+    data: {{ data|tojson }},
+    movableColumns: true,
+    addRowPos: "top",
+    editable: true,
+    cellEdited: function(cell) {
+        document.getElementById('save-status').innerText = "Unsaved changes...";
+    }
+});
+
+document.getElementById('save-btn').onclick = function() {
+    var tableData = table.getData();
+    fetch('/api/save_data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: tableData })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status === 'success') {
+            document.getElementById('save-status').innerText = "Saved successfully!";
+        } else {
+            document.getElementById('save-status').innerText = "Error: " + data.message;
+        }
+    });
+};
+</script>
+</body>
+</html>

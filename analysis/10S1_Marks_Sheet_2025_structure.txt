@@ -1,0 +1,60 @@
+Sheet: 10S1-1st
+ST. JOSEPH'S COLLEGE  - NEGOMBO BRANCH														
+First Term Evaluation - 2025											   Grade		10 S1	
+		1	2	3	4	5	6	7	8	9				
+No	Name	R/C   BU.	SINHALA	ENGLISH	MATHS	HISTORY	SCIENCE	BI (BS/Civics/Tamil)	B2(A/D/EM/WM/Dr)	B3(IT/HSc/HE)	TOTAL	AVERAGE	POSITION	
+1	Deneth Fernando	95	51	54	17	60	30	40	63	59	469	52.111111111111114	15	
+2	Gayantha Madushan	70	43	25	29	32	33	45	45	43	365	40.55555555555556	22	
+3	Dihain Kemith De Silva	76	41	60	16	26	23	19	25	18	304	33.77777777777778	28	
+4	Raveen Sulakshana	54	42	62	25	17	16	38	72	60	386	42.888888888888886	21	
+5	Withesh Tharusha	41	20	69	20	17	ab	32	37	ab	236	26.22222222222222	31	
+6	Thrivishka Kawshan	48	12	54	3	18	22	42	29	42	270	30	30	
+---
+Sheet: 10S1-2nd (2)
+ST. JOSEPH'S COLLEGE  - NEGOMBO BRANCH														
+Second Term Evaluation - 2025											   Grade		10 S1	
+		1	2	3	4	5	6	7	8	9				
+No	Name	R/C   BU.	SINHALA	ENGLISH	MATHS	HISTORY	SCIENCE	BI (BS/Civics/Tamil)	B2(A/D/EM/WM/Dr)	B3(IT/HSc/HE)	TOTAL	AVERAGE	POSITION	
+1	Deneth Fernando	82	39	49	25	33	31	38	47	82	426	47.333333333333336	18	
+2	Gayantha Madushan	61	31	28	30	25	41	31	48	59	354	39.333333333333336	24	
+3	Dihain Kemith De Silva	53	41	39	27	23	19	29	22	15	268	29.77777777777778	32	
+4	Raveen Sulakshana	53	44	45	26	28	22	28	81	62	389	43.22222222222222	22	
+5	Withesh Tharusha	17	18	47	ab	ab	ab	11	ab	26	119	13.222222222222221	36	
+6	Thrivishka Kawshan	20	17	ab	10	20	14	38	34	ab	153	17	35	
+---
+Sheet: 10S1-2nd
+ST. JOSEPH'S COLLEGE  - NEGOMBO BRANCH														
+Second Term Evaluation - 2023											   Grade		10 S1	
+		1	2	3	4	5	6	7	8	9				
+No	Name	R/C   BU.	SINHALA	ENGLISH	MATHS	HISTORY	SCIENCE	BI (BS/Civics/Tamil)	B2(A/D/EM/WM/Dr)	B3(IT/HSc/Med)	TOTAL	AVERAGE	POSITION	
+1								0	0	0	0	0	1	
+2								0	0	0	0	0	1	
+3								0	0	0	0	0	1	
+4								0	0	0	0	0	1	
+5								0	0	0	0	0	1	
+6								0	0	0	0	0	1	
+---
+Sheet: 10S1-3rd
+ST. JOSEPH'S COLLEGE  - NEGOMBO BRANCH														
+Third Term Evaluation - 2023											   Grade		10 S1	
+		1	2	3	4	5	6	7	8	9				
+No	Name	R/C   BU.	SINHALA	ENGLISH	MATHS	HISTORY	SCIENCE	BI (BS/Civics/Tamil)	B2(A/D/EM/WM/Dr)	B3(IT/HSc/HE)	TOTAL	AVERAGE	POSITION	
+1								0	0	0	0	0	1	
+2								0	0	0	0	0	1	
+3								0	0	0	0	0	1	
+4								0	0	0	0	0	1	
+5								0	0	0	0	0	1	
+6								0	0	0	0	0	1	
+---
+Sheet: 10s1 results 3rd term
+No	Name	R/C   BU.	Result 	SINHALA	Result 	ENGLISH	Result 	MATHS	Result 	HISTORY	Result 	SCIENCE	Result 	BI (BS/Civics/Tamil)
+1	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+2	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+3	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+4	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+5	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+6	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+7	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+8	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+9	0	0	w	0	w	0	w	0	w	0	w	0	w	0
+---

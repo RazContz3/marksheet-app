@@ -1,0 +1,116 @@
+FILE: f:\S1_Analysis\s1_neg.xlsm
+Type: OpenXML
+WARNING  For now, VBA stomping cannot be detected for files in memory
+-------------------------------------------------------------------------------
+VBA MACRO Module1.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module1'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO Module2.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module2'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO Module3.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module3'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO Module4.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module4'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO Module5.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module5'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO Module6.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module6'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO Module7.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module7'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO UserForm1.vba
+in file: xl/vbaProject.bin - OLE stream: 'VBA/UserForm1'
+(empty macro)
+-------------------------------------------------------------------------------
+VBA MACRO Module8.bas
+in file: xl/vbaProject.bin - OLE stream: 'VBA/Module8'
+
+Sub Marks_AN_1()
+' Marks_AN_1 Macro
+' Keyboard Shortcut: Ctrl+Shift+A
+    ActiveSheet.Unprotect "lk573"
+    Range("E15:AL64").Select
+    Application.CutCopyMode = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlBetween, _
+        Formula1:="=1", Formula2:="=19"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .ThemeColor = xlThemeColorLight2
+        .TintAndShade = 0.799981688894314
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlBetween, _
+        Formula1:="=20", Formula2:="=34"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 5296274
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlBetween, _
+        Formula1:="=35", Formula2:="=49"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 49407
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlBetween, _
+        Formula1:="=50", Formula2:="=64"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 65535
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlBetween, _
+        Formula1:="=65", Formula2:="=74"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 15773696
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlBetween, _
+        Formula1:="=75", Formula2:="=100"
+    Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Interior
+        .PatternColorIndex = xlAutomatic
+        .Color = 255
+        .TintAndShade = 0
+    End With
+    Selection.FormatConditions(1).StopIfTrue = False
+    Application.Goto Reference:="R2C1"
+    ActiveSheet.Protect "lk573"
+    ActiveSheet.Protect "lk573"
+End Sub
+...existing code...
++----------+--------------------+---------------------------------------------+
+|Type      |Keyword             |Description                                  |
++----------+--------------------+---------------------------------------------+
+|Suspicious|Hex Strings         |Hex-encoded strings were detected, may be    |
+|          |                    |used to obfuscate strings (option --decode to|
+|          |                    |see all)                                     |
+|Suspicious|Base64 Strings      |Base64-encoded strings were detected, may be |
+|          |                    |used to obfuscate sbfuscate strings (option --decode to|
+|          |                    |see all)                                     |
+|Base64    |3_6                 |M182                                         |
+|String    |                    |                                             |
++----------+--------------------+---------------------------------------------+
