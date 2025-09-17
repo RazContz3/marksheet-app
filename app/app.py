@@ -92,12 +92,86 @@ def dashboard():
 def index():
     return render_template('index.html')
 
+@app.route('/bulk_entry')
+def bulk_entry():
+    return render_template('bulk_entry.html')
+
+@app.route('/api/save_bulk_data', methods=['POST'])
+def save_bulk_data():
+    try:
+        class_code = request.json.get('classCode')
+        term = request.json.get('term')
+        data = request.json.get('data')
+        
+        if not all([class_code, term, data]):
+            return jsonify({'status': 'error', 'message': 'Missing required data'})
+        
+        # Convert tab-separated data to DataFrame
+        rows = [row.split('\t') for row in data.strip().split('\n')]
+        if len(rows) < 2:  # Need at least header and one data row
+            return jsonify({'status': 'error', 'message': 'Insufficient data'})
+            
+        df = pd.DataFrame(rows[1:], columns=rows[0])
+        
+        # Create table name based on class and term
+        table_name = f"{class_code}_term{term}_marks"
+        
+        # Save to database
+        conn = sqlite3.connect(DB_PATH)
+        df.to_sql(table_name, conn, if_exists='replace', index=False)
+        conn.close()
+        
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/advanced_entry')
+def advanced_entry():
+    return render_template('advanced_entry.html')
+
+@app.route('/api/get_marks_data')
+def get_marks_data():
+    class_code = request.args.get('class', '10S1')
+    term = request.args.get('term', '1')
+    table_name = f"{class_code}_term{term}_marks"
+    
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        df = pd.read_sql(f'SELECT * FROM {table_name}', conn)
+        conn.close()
+        return jsonify(df.to_dict(orient='records'))
+    except:
+        # Return empty list if table doesn't exist
+        return jsonify([])
+
+@app.route('/api/save_marks_data', methods=['POST'])
+def save_marks_data():
+    try:
+        data = request.json
+        class_code = data.get('class')
+        term = data.get('term')
+        rows = data.get('data', [])
+        
+        if not all([class_code, term, rows]):
+            return jsonify({'status': 'error', 'message': 'Missing required data'})
+        
+        table_name = f"{class_code}_term{term}_marks"
+        
+        # Convert to DataFrame and save
+        df = pd.DataFrame(rows)
+        conn = sqlite3.connect(DB_PATH)
+        df.to_sql(table_name, conn, if_exists='replace', index=False)
+        conn.close()
+        
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)})
+
 @app.route('/students')
-def students():
-    conn = sqlite3.connect(DB_PATH)
-    students = pd.read_sql('SELECT * FROM final_clean_10S1_Marks_Sheet_2025', conn)
-    conn.close()
-    return render_template('students.html', students=students.to_dict(orient='records'))
 
 # Add more routes for reports, search, export, etc.
 

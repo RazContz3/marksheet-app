@@ -8,10 +8,20 @@
 <body>
     <div class="container mt-4">
         <h1>School Marksheet Management</h1>
-        <ul>
-            <li><a href="{{ url_for('students') }}">View Students</a></li>
-            <!-- Add links for reports, search, export, etc. -->
-        </ul>
+        <div class="list-group">
+            <a href="{{ url_for('bulk_entry') }}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">Bulk Data Entry</h5>
+                <small>Copy-paste data from Excel sheets</small>
+            </a>
+            <a href="{{ url_for('students') }}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">View Students</h5>
+                <small>Browse and search student records</small>
+            </a>
+            <a href="{{ url_for('dashboard') }}" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">Dashboard</h5>
+                <small>View analytics and reports</small>
+            </a>
+        </div>
     </div>
 </body>
 </html>

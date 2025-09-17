@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Advanced Data Entry - Marksheet</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://unpkg.com/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-grid.css">
+    <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/styles/ag-theme-alpine.css">
+    <style>
+        .mark-cell-1-19 { background-color: #ff9999 !important; }
+        .mark-cell-20-34 { background-color: #ffcc99 !important; }
+        .mark-cell-35-49 { background-color: #ffff99 !important; }
+        .mark-cell-50-64 { background-color: #99ff99 !important; }
+        .mark-cell-65-74 { background-color: #99ccff !important; }
+        .mark-cell-75-100 { background-color: #cc99ff !important; }
+        .mark-cell-absent { background-color: #cccccc !important; }
+        .header-cell {
+            background-color: #f8f9fa !important;
+            font-weight: bold !important;
+        }
+        #gridContainer {
+            height: calc(100vh - 200px);
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Marksheet App</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/students">Students</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/advanced_entry">Advanced Entry</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <select class="form-select" id="classSelect" style="width: 200px;">
+                            <option value="10S1">10S1</option>
+                            <option value="10S2">10S2</option>
+                            <option value="10S3">10S3</option>
+                            <option value="10S4">10S4</option>
+                            <option value="11S1">11S1</option>
+                            <option value="11S2">11S2</option>
+                            <option value="11S3">11S3</option>
+                            <option value="11S4">11S4</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select class="form-select" id="termSelect" style="width: 200px;">
+                            <option value="1">First Term</option>
+                            <option value="2">Second Term</option>
+                            <option value="3">Third Term</option>
+                        </select>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-success" id="saveBtn">Save Changes</button>
+                        <button class="btn btn-primary" id="analyzeBtn">Analyze</button>
+                        <button class="btn btn-warning" id="exportBtn">Export Excel</button>
+                        <button class="btn btn-info" id="addRowBtn">Add Row</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div id="gridContainer" class="ag-theme-alpine"></div>
+            </div>
+        </div>
+
+        <!-- Analysis Modal -->
+        <div class="modal fade" id="analysisModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Analysis Results</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Pass/Fail Statistics</h6>
+                                <ul class="list-group" id="passFailStats">
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Special Attention Required</h6>
+                                <ul class="list-group" id="specialAttentionList">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Column Definitions
+        const columnDefs = [
+            { field: 'no', headerName: 'No', width: 70, editable: false },
+            { field: 'name', headerName: 'Name', width: 200 },
+            { field: 'rc_bu', headerName: 'R/C BU.', width: 100 },
+            { field: 'sinhala', headerName: 'SINHALA', width: 100 },
+            { field: 'english', headerName: 'ENGLISH', width: 100 },
+            { field: 'maths', headerName: 'MATHS', width: 100 },
+            { field: 'history', headerName: 'HISTORY', width: 100 },
+            { field: 'science', headerName: 'SCIENCE', width: 100 },
+            { field: 'basket1', headerName: 'BI (BS/Civics/Tamil)', width: 150 },
+            { field: 'basket2', headerName: 'B2(A/D/EM/WM/Dr)', width: 150 },
+            { field: 'basket3', headerName: 'B3(IT/HSc/HE)', width: 150 },
+            { 
+                field: 'total', 
+                headerName: 'TOTAL', 
+                width: 100,
+                valueGetter: params => {
+                    const subjects = ['sinhala', 'english', 'maths', 'history', 'science', 'basket1', 'basket2', 'basket3'];
+                    const marks = subjects.map(s => {
+                        const val = params.data[s];
+                        return val === 'ab' || val === '' ? 0 : parseFloat(val) || 0;
+                    });
+                    return marks.reduce((a, b) => a + b, 0);
+                },
+                editable: false
+            },
+            {
+                field: 'average',
+                headerName: 'AVERAGE',
+                width: 100,
+                valueGetter: params => {
+                    const total = params.getValue('total');
+                    return (total / 9).toFixed(2);
+                },
+                editable: false
+            },
+            {
+                field: 'result',
+                headerName: 'RESULT',
+                width: 120,
+                valueGetter: params => {
+                    const subjects = ['sinhala', 'english', 'maths', 'history', 'science', 'basket1'];
+                    let passes = 0;
+                    let credits = 0;
+                    let hasW = false;
+
+                    subjects.forEach(s => {
+                        const val = params.data[s];
+                        if (val === 'W' || val === 'w') {
+                            hasW = true;
+                            return;
+                        }
+                        const mark = parseFloat(val);
+                        if (mark >= 35) {
+                            passes++;
+                            if (mark >= 65) credits++;
+                        }
+                    });
+
+                    if (hasW) return 'W';
+                    if (passes >= 6 && credits >= 3) return '6/3 සමත්';
+                    if (passes >= 5 && credits >= 3) return '5/3 සමත්';
+                    if (passes >= 4 && credits >= 1) return 'සමත් කළ හැකි';
+                    return 'අසමත් ?';
+                },
+                editable: false
+            }
+        ];
+
+        // Grid Options
+        const gridOptions = {
+            columnDefs: columnDefs,
+            rowData: [],
+            defaultColDef: {
+                editable: true,
+                resizable: true,
+                sortable: true,
+                filter: true
+            },
+            enableRangeSelection: true,
+            copyHeadersToClipboard: true,
+            suppressExcelExport: false,
+            onCellValueChanged: params => {
+                // Recompute totals when a mark changes
+                if (['sinhala', 'english', 'maths', 'history', 'science', 'basket1', 'basket2', 'basket3'].includes(params.column.getId())) {
+                    params.api.refreshCells({
+                        force: true,
+                        columns: ['total', 'average', 'result']
+                    });
+                }
+            },
+            getRowStyle: params => {
+                if (params.data.result === 'අසමත් ?') {
+                    return { background: '#ffebee' };
+                }
+                return null;
+            },
+            getCellStyle: params => {
+                const val = params.value;
+                if (['sinhala', 'english', 'maths', 'history', 'science', 'basket1', 'basket2', 'basket3'].includes(params.column.getId())) {
+                    if (val === 'ab' || val === 'AB' || val === 'w' || val === 'W') {
+                        return { 'mark-cell-absent': true };
+                    }
+                    const mark = parseFloat(val);
+                    if (!isNaN(mark)) {
+                        if (mark < 20) return { 'mark-cell-1-19': true };
+                        if (mark < 35) return { 'mark-cell-20-34': true };
+                        if (mark < 50) return { 'mark-cell-35-49': true };
+                        if (mark < 65) return { 'mark-cell-50-64': true };
+                        if (mark < 75) return { 'mark-cell-65-74': true };
+                        return { 'mark-cell-75-100': true };
+                    }
+                }
+                return null;
+            }
+        };
+
+        // Initialize Grid
+        document.addEventListener('DOMContentLoaded', () => {
+            const gridDiv = document.querySelector('#gridContainer');
+            new agGrid.Grid(gridDiv, gridOptions);
+
+            // Load initial data
+            fetch('/api/get_marks_data')
+                .then(response => response.json())
+                .then(data => {
+                    gridOptions.api.setRowData(data);
+                });
+
+            // Save button handler
+            document.querySelector('#saveBtn').addEventListener('click', () => {
+                const rowData = [];
+                gridOptions.api.forEachNode(node => rowData.push(node.data));
+                
+                fetch('/api/save_marks_data', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        class: document.querySelector('#classSelect').value,
+                        term: document.querySelector('#termSelect').value,
+                        data: rowData
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.status === 'success') {
+                        alert('Data saved successfully!');
+                    } else {
+                        alert('Error saving data: ' + result.message);
+                    }
+                });
+            });
+
+            // Add Row button handler
+            document.querySelector('#addRowBtn').addEventListener('click', () => {
+                const newRow = {
+                    no: gridOptions.api.getDisplayedRowCount() + 1,
+                    name: '',
+                    rc_bu: '',
+                    sinhala: '',
+                    english: '',
+                    maths: '',
+                    history: '',
+                    science: '',
+                    basket1: '',
+                    basket2: '',
+                    basket3: ''
+                };
+                gridOptions.api.applyTransaction({ add: [newRow] });
+            });
+
+            // Analyze button handler
+            document.querySelector('#analyzeBtn').addEventListener('click', () => {
+                const rowData = [];
+                gridOptions.api.forEachNode(node => rowData.push(node.data));
+                
+                // Calculate statistics
+                const total = rowData.length;
+                const passed = rowData.filter(r => r.result.includes('සමත්')).length;
+                const maybePass = rowData.filter(r => r.result === 'සමත් කළ හැකි').length;
+                const failed = rowData.filter(r => r.result === 'අසමත් ?').length;
+                const withdrawn = rowData.filter(r => r.result === 'W').length;
+
+                // Update modal content
+                const passFailStats = document.querySelector('#passFailStats');
+                passFailStats.innerHTML = `
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Total Students
+                        <span class="badge bg-primary rounded-pill">${total}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Passed
+                        <span class="badge bg-success rounded-pill">${passed}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        May Pass
+                        <span class="badge bg-warning rounded-pill">${maybePass}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Failed
+                        <span class="badge bg-danger rounded-pill">${failed}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Withdrawn
+                        <span class="badge bg-secondary rounded-pill">${withdrawn}</span>
+                    </li>
+                `;
+
+                // Show modal
+                const modal = new bootstrap.Modal(document.querySelector('#analysisModal'));
+                modal.show();
+            });
+
+            // Export button handler
+            document.querySelector('#exportBtn').addEventListener('click', () => {
+                const params = {
+                    fileName: `${document.querySelector('#classSelect').value}_Term${document.querySelector('#termSelect').value}_Marks.xlsx`
+                };
+                gridOptions.api.exportDataAsExcel(params);
+            });
+        });
+    </script>
+</body>
+</html>
