@@ -125,10 +125,6 @@ def save_bulk_data():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
 @app.route('/advanced_entry')
 def advanced_entry():
     return render_template('advanced_entry.html')
